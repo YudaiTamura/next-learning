@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Head from "next/head";
 
 export default function Home() {
   return (
@@ -9,9 +9,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>
-        Hello NextJs
-      </h1>
+      <h1>Hello NextJs</h1>
 
       {/* <footer className={styles.footer}>
         <a
@@ -26,5 +24,5 @@ export default function Home() {
         </a>
       </footer> */}
     </div>
-  )
+  );
 }
