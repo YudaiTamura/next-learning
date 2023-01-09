@@ -23,7 +23,7 @@ export default function Layout({
               </Link>
             </li>
             <li className="flex space-x-4">
-              <Link href="/blog">
+              <Link href="/blogs">
                 <a className="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded">Blog</a>
               </Link>
             </li>
