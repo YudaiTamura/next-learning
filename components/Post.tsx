@@ -1,4 +1,6 @@
-const Post = ({ post }) => {
+import { Blog } from "../lib/blogPosts";
+
+const Post = ({ post }: { post: Blog }) => {
   return (
     <div>
       <span>{post.id}</span>
