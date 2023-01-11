@@ -2,7 +2,7 @@ import Link from "next/link";
 import Layout from "../../components/Layout";
 import { Blog, BlogId, getAllBlogIds, getBlogData } from "../../lib/blogPosts";
 
-const Post = ({ post }: { post: Blog }) => {
+export default function Post({ post }: { post: Blog }) {
   if (!post) {
     return <div>Loading...</div>;
   }
@@ -30,9 +30,7 @@ const Post = ({ post }: { post: Blog }) => {
       </Link>
     </Layout>
   );
-};
-
-export default Post;
+}
 
 export async function getStaticPaths() {
   const paths = await getAllBlogIds();
