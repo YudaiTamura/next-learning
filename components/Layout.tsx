@@ -8,7 +8,7 @@ export default function Layout({
   displayHeader = true,
 }: {
   children: React.ReactNode;
-  title: string;
+  title?: string;
   displayHeader?: boolean;
 }) {
   return (
