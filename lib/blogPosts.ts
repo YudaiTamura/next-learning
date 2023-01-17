@@ -1,17 +1,28 @@
-const apiUrl = "https://jsonplaceholder.typicode.com/posts";
+const apiUrl = `${process.env.NEXT_PUBLIC_RESTAPI_URL}/api/blog-list`;
 
 export type Blog = {
   id: number;
   userId: number;
   title: string;
   body: string;
+  created_at: string;
 };
 
 export type Blogs = Blog[];
 
 export async function getAllBlogPosts(): Promise<Blogs> {
-  const res = await fetch(apiUrl);
-  return res.json() as Promise<Blogs>;
+  try {
+    const res = await fetch(apiUrl);
+    const posts = (await res.json()) as Blogs;
+    // NOTE: 作成日時が新しい順に並び替え
+    return posts.sort((a, b) => {
+      const date1 = new Date(a.created_at);
+      const date2 = new Date(b.created_at);
+      return date2.getTime() - date1.getTime();
+    });
+  } catch {
+    return [];
+  }
 }
 
 export type BlogId = { params: { id: string } };

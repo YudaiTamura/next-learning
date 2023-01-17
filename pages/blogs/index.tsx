@@ -1,33 +1,28 @@
-import Link from "next/link";
 import Layout from "../../components/Layout";
 import Post from "../../components/Post";
+import BackToMain from "../../components/BackToMain";
 import { getAllBlogPosts, Blogs } from "../../lib/blogPosts";
 
 export default function Blog({ posts }: { posts: Blogs }) {
-  return (
-    <Layout title="Blogs">
-      <ul className="m-10">{posts && posts.map((post) => <Post key={post.id} post={post} />)}</ul>
-      <Link href="/main-page">
-        <div className="flex cursor-pointer mt-12 mb-12">
-          <svg
-            className="w-6 h-6 mr-3"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
-            />
-          </svg>
-          <span>Back to main page</span>
-        </div>
-      </Link>
-    </Layout>
-  );
+  if (posts.length === 0) {
+    return (
+      <Layout title="Blogs">
+        <div className="m-10">No Blog Posts</div>
+        <BackToMain />
+      </Layout>
+    );
+  } else {
+    return (
+      <Layout title="Blogs">
+        <ul className="m-10">
+          {posts.map((post) => (
+            <Post key={post.id} post={post} />
+          ))}
+        </ul>
+        <BackToMain />
+      </Layout>
+    );
+  }
 }
 
 export async function getStaticProps() {

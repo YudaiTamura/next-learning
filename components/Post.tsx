@@ -3,15 +3,15 @@ import { Blog } from "../lib/blogPosts";
 
 const Post = ({ post }: { post: Blog }) => {
   return (
-    <div>
+    <li>
       <span>{post.id}</span>
       {" : "}
       <Link href={`/blogs/${post.id}`}>
-        <a className=" cursor-pointer text-blue-500 border-b border-blue-500 hover:bg-gray-200">
+        <a className=" cursor-pointer text-white border-b border-gray-500 hover:bg-gray-600">
           {post.title}
         </a>
       </Link>
-    </div>
+    </li>
   );
 };
 
