@@ -31,7 +31,10 @@ export default function TaskPage({ tasks }: { tasks: Tasks }) {
   } else {
     return (
       <Layout title="Tasks">
-        <ul>{filteredTasks && filteredTasks.map((task) => <Task key={task.id} task={task} />)}</ul>
+        <ul>
+          {filteredTasks &&
+            filteredTasks.map((task) => <Task key={task.id} task={task} taskDeleted={mutate} />)}
+        </ul>
         <BackToMain />
       </Layout>
     );

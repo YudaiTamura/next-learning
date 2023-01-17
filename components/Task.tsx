@@ -1,9 +1,39 @@
 import Link from "next/link";
+import { useRef } from "react";
+import { KeyedMutator } from "swr";
+import Cookie from "universal-cookie";
 import { Task } from "../lib/tasks";
 
-export default function TaskComponent({ task }: { task: Task }) {
+const cookie = new Cookie();
+
+export default function TaskComponent({
+  task,
+  taskDeleted,
+}: {
+  task: Task;
+  taskDeleted: KeyedMutator<any>;
+}) {
+  const deleteProcessing = useRef(false);
+
+  const deleteTask = async (): Promise<void> => {
+    if (deleteProcessing.current) return;
+    deleteProcessing.current = true;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_RESTAPI_URL}/api/tasks/${task.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${cookie.get("access_token")}`,
+      },
+    });
+    if (res.status === 401) {
+      alert("JWT is not valid");
+    }
+    taskDeleted();
+    deleteProcessing.current = false;
+  };
+
   return (
-    <div>
+    <li>
       <span>{task.id}</span>
       {" : "}
       <Link href={`/tasks/${task.id}`}>
@@ -11,6 +41,24 @@ export default function TaskComponent({ task }: { task: Task }) {
           {task.title}
         </span>
       </Link>
-    </div>
+
+      <div className="float-right ml-20">
+        <svg
+          onClick={deleteTask}
+          className="w-6 h-6 mr-2 cursor-pointer"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+          />
+        </svg>
+      </div>
+    </li>
   );
 }
