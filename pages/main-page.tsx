@@ -14,20 +14,19 @@ export default function MainPage() {
   return (
     <Layout title="Main Page">
       <div className="mb-10">
-        <Link href="/blog-page">
+        <Link href="/blogs">
           <a className="bg-indigo-500 mr-8  hover:bg-indigo-600 text-white px-4 py-12 rounded">
             Visit Blog by SSG + ISR
           </a>
         </Link>
-        <Link href="/task-page">
+        <Link href="/tasks">
           <a className="bg-gray-500 ml-8 hover:bg-gray-600 text-white px-4 py-12 rounded">
             Visit Task by ISR + CSR
           </a>
         </Link>
       </div>
-      <div className="flex cursor-pointer mt-12 mb-12">
+      <div onClick={logout} className="flex cursor-pointer mt-12 mb-12">
         <svg
-          onClick={logout}
           className="mr-2 w-6 h-6"
           fill="none"
           stroke="currentColor"
