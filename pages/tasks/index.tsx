@@ -4,6 +4,8 @@ import Task from "../../components/Task";
 import TaskService, { Tasks } from "../../lib/tasks";
 import useSWR from "swr";
 import { useEffect } from "react";
+import TaskContextProvider from "../../context/TaskContext";
+import TaskForm from "../../components/TaskForm";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 const apiUrl = `${process.env.NEXT_PUBLIC_RESTAPI_URL}/api/task-list/`;
@@ -30,13 +32,16 @@ export default function TaskPage({ tasks }: { tasks: Tasks }) {
     );
   } else {
     return (
-      <Layout title="Tasks">
-        <ul>
-          {filteredTasks &&
-            filteredTasks.map((task) => <Task key={task.id} task={task} taskDeleted={mutate} />)}
-        </ul>
-        <BackToMain />
-      </Layout>
+      <TaskContextProvider>
+        <Layout title="Tasks">
+          <TaskForm mutate={mutate} />
+          <ul>
+            {filteredTasks &&
+              filteredTasks.map((task) => <Task key={task.id} task={task} taskDeleted={mutate} />)}
+          </ul>
+          <BackToMain />
+        </Layout>
+      </TaskContextProvider>
     );
   }
 }
