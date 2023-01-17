@@ -15,7 +15,7 @@ export default function Auth() {
 
   const login = async (): Promise<void> => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/auth/jwt/create/`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_RESTAPI_URL}/api/auth/jwt/create/`, {
         method: "POST",
         body: JSON.stringify({ username, password }),
         headers: {
@@ -43,7 +43,7 @@ export default function Auth() {
       login();
     } else {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/register/`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_RESTAPI_URL}/api/register/`, {
           method: "POST",
           body: JSON.stringify({ username: username, password: password }),
           headers: {
