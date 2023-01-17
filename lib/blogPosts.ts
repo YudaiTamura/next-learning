@@ -2,7 +2,6 @@ const apiBaseUrl = process.env.NEXT_PUBLIC_RESTAPI_URL;
 
 export type Blog = {
   id: number;
-  userId: number;
   title: string;
   content: string;
   created_at: string;
