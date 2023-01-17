@@ -1,14 +1,11 @@
 import Link from "next/link";
 import Layout from "../../components/Layout";
-import Post from "../../components/Post";
-import { getAllBlogPosts, Blogs } from "../../lib/blogPosts";
 
-export default function Blog({ posts }: { posts: Blogs }) {
+export default function Task() {
   return (
-    <Layout title="Blogs">
-      <ul className="m-10">{posts && posts.map((post) => <Post key={post.id} post={post} />)}</ul>
+    <Layout title="Tasks">
       <Link href="/main-page">
-        <div className="flex cursor-pointer mt-12 mb-12">
+        <div className="flex cursor-pointer mt-12">
           <svg
             className="w-6 h-6 mr-3"
             fill="none"
@@ -28,11 +25,4 @@ export default function Blog({ posts }: { posts: Blogs }) {
       </Link>
     </Layout>
   );
-}
-
-export async function getStaticProps() {
-  const posts = await getAllBlogPosts();
-  return {
-    props: { posts },
-  };
 }

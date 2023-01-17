@@ -11,8 +11,18 @@ const Header = () => {
             </Link>
           </li>
           <li className="flex space-x-4">
+            <Link href="/main-page">
+              <a className="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded">Main</a>
+            </Link>
+          </li>
+          <li className="flex space-x-4">
             <Link href="/blogs">
               <a className="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded">Blog</a>
+            </Link>
+          </li>
+          <li className="flex space-x-4">
+            <Link href="/tasks">
+              <a className="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded">Task</a>
             </Link>
           </li>
           <li className="flex space-x-4">
