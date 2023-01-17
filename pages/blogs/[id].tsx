@@ -1,16 +1,24 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import Layout from "../../components/Layout";
 import { Blog, BlogId, getAllBlogIds, getBlogData } from "../../lib/blogPosts";
 
 export default function Post({ post }: { post: Blog }) {
-  if (!post) {
-    return <div>Loading...</div>;
+  const router = useRouter();
+
+  if (router.isFallback || !post) {
+    return (
+      <Layout>
+        <div>Loading...</div>
+      </Layout>
+    );
   }
   return (
     <Layout title={post.title}>
       <p className="m-4">ID : {post.id}</p>
-      <p className="mb-8 text-xl font-bold">{post.title}</p>
-      <p className="px-10">{post.body}</p>
+      <p className="mb-4 text-xl font-bold">{post.title}</p>
+      <p className="mb-12">{post.created_at}</p>
+      <p className="px-10">{post.content}</p>
       <Link href="/blogs">
         <div className=" flex items-center cursor-pointer mt-12">
           <svg
@@ -36,7 +44,7 @@ export async function getStaticPaths() {
   const paths = await getAllBlogIds();
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 }
 
@@ -44,5 +52,6 @@ export async function getStaticProps({ params }: BlogId) {
   const post = await getBlogData(params.id);
   return {
     props: { post },
+    revalidate: 3,
   };
 }

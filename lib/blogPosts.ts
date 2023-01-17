@@ -1,10 +1,10 @@
-const apiUrl = `${process.env.NEXT_PUBLIC_RESTAPI_URL}/api/blog-list`;
+const apiBaseUrl = process.env.NEXT_PUBLIC_RESTAPI_URL;
 
 export type Blog = {
   id: number;
   userId: number;
   title: string;
-  body: string;
+  content: string;
   created_at: string;
 };
 
@@ -12,7 +12,7 @@ export type Blogs = Blog[];
 
 export async function getAllBlogPosts(): Promise<Blogs> {
   try {
-    const res = await fetch(apiUrl);
+    const res = await fetch(`${apiBaseUrl}/api/blog-list`);
     const posts = (await res.json()) as Blogs;
     // NOTE: 作成日時が新しい順に並び替え
     return posts.sort((a, b) => {
@@ -28,7 +28,7 @@ export async function getAllBlogPosts(): Promise<Blogs> {
 export type BlogId = { params: { id: string } };
 
 export async function getAllBlogIds(): Promise<BlogId[]> {
-  const res = await fetch(apiUrl);
+  const res = await fetch(`${apiBaseUrl}/api/blog-list`);
   const posts = (await res.json()) as Blogs;
 
   return posts.map((post) => ({
@@ -39,6 +39,6 @@ export async function getAllBlogIds(): Promise<BlogId[]> {
 }
 
 export async function getBlogData(id: string): Promise<Blog> {
-  const res = await fetch(`${apiUrl}/${id}/`);
+  const res = await fetch(`${apiBaseUrl}/api/blog-detail/${id}/`);
   return res.json() as Promise<Blog>;
 }
