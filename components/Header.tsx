@@ -26,6 +26,11 @@ const Header = () => {
             </Link>
           </li>
           <li className="flex space-x-4">
+            <Link href="/photo">
+              <a className="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded">Photo</a>
+            </Link>
+          </li>
+          <li className="flex space-x-4">
             <Link href="/contact">
               <a className="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded">Contact</a>
             </Link>
